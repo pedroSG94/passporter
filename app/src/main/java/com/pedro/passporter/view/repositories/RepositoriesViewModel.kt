@@ -19,7 +19,7 @@ class RepositoriesViewModel @Inject constructor(private val apiRestRepository: A
   private val config = PassporterConfig()
 
   fun getRepositories(): Flow<PagingData<LocalRepository>> {
-    val pager = Pager(config = PagingConfig(10), pagingSourceFactory = { RepositoriesPagingSource(apiRestRepository, config) })
+    val pager = Pager(config = PagingConfig(config.pageSize), pagingSourceFactory = { RepositoriesPagingSource(apiRestRepository, config) })
     return pager.flow.cachedIn(viewModelScope)
   }
 }
