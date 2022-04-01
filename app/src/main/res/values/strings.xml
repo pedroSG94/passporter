@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Passporter</string>
+    <string name="name">Name: %s</string>
+    <string name="description">Description: %s</string>
+    <string name="owner">Owner: %s</string>
 </resources>

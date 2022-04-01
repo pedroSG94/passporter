@@ -1,14 +1,16 @@
 package com.pedro.passporter.view.repositories
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.pedro.passporter.R
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedro.passporter.databinding.RepositoriesFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class RepositoriesFragment : Fragment() {
@@ -25,6 +27,8 @@ class RepositoriesFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     binding.repositoriesList.adapter = adapter
+    val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
+    binding.repositoriesList.addItemDecoration(dividerItemDecoration)
     viewModel.usersObserver.observe(viewLifecycleOwner) {
       adapter.submitList(it)
     }
