@@ -12,11 +12,11 @@ import com.pedro.passporter.databinding.RepositoryItemBinding
 /**
  * Created by pedro on 1/4/22.
  */
-class RepositoriesAdapter: PagingDataAdapter<LocalRepository, RepositoriesAdapter.ViewHolder>(UserDiffCallback()) {
+class RepositoriesAdapter(private val listener: ClickListener): PagingDataAdapter<LocalRepository, RepositoriesAdapter.ViewHolder>(UserDiffCallback()) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val binding = RepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    return ViewHolder(binding)
+    return ViewHolder(binding, listener)
   }
 
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -24,13 +24,16 @@ class RepositoriesAdapter: PagingDataAdapter<LocalRepository, RepositoriesAdapte
     holder.bind(item)
   }
 
-  class ViewHolder(private val itemBinding: RepositoryItemBinding) :
+  class ViewHolder(private val itemBinding: RepositoryItemBinding, private val listener: ClickListener) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(repository: LocalRepository?) {
-      repository?.let {
-        itemBinding.repository = it
+      repository?.let { localRepository ->
+        itemBinding.repository = localRepository
         itemBinding.executePendingBindings()
+        itemBinding.root.setOnLongClickListener {
+          listener.onClick(localRepository)
+        }
       }
     }
   }
@@ -43,5 +46,9 @@ class RepositoriesAdapter: PagingDataAdapter<LocalRepository, RepositoriesAdapte
     override fun areContentsTheSame(oldItem: LocalRepository, newItem: LocalRepository): Boolean {
       return oldItem.id == newItem.id
     }
+  }
+
+  interface ClickListener {
+    fun onClick(localRepository: LocalRepository): Boolean
   }
 }

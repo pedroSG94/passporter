@@ -5,4 +5,12 @@ package com.pedro.passporter.data.models
  *
  * Parse to a local variable with values used in app.
  */
-data class LocalRepository(val id: Int, val name: String, val description: String, val loginOwner: String, val fork: Boolean)
+data class LocalRepository(
+  val id: Int,
+  val name: String,
+  val description: String,
+  val loginOwner: String,
+  val fork: Boolean,
+  val htmlUrl: String,
+  val htmlUrlOwner: String,
+)

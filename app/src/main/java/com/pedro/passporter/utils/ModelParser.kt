@@ -9,5 +9,5 @@ import com.pedro.passporter.data.models.LocalRepository
 
 fun Repository.toLocalRepository(): LocalRepository {
   val description = this.description ?: "No description provided"
-  return LocalRepository(this.id, this.name, description, this.owner.login, this.fork)
+  return LocalRepository(this.id, this.name, description, this.owner.login, this.fork, this.html_url, this.owner.html_url)
 }
