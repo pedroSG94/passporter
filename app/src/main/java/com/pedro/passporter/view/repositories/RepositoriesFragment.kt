@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import com.pedro.passporter.R
 import com.pedro.passporter.data.models.LocalRepository
 import com.pedro.passporter.databinding.DialogLayoutBinding
 import com.pedro.passporter.databinding.RepositoriesFragmentBinding
+import com.pedro.passporter.view.repositories.adapter.RepositoriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 

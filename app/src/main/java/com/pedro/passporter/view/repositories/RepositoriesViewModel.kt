@@ -9,6 +9,7 @@ import androidx.paging.cachedIn
 import com.pedro.passporter.data.models.LocalRepository
 import com.pedro.passporter.data.models.PassporterConfig
 import com.pedro.passporter.task.ApiRestRepository
+import com.pedro.passporter.view.repositories.adapter.RepositoriesPagingSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

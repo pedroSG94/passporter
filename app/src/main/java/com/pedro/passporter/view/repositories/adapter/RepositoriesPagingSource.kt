@@ -1,4 +1,4 @@
-package com.pedro.passporter.view.repositories
+package com.pedro.passporter.view.repositories.adapter
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
