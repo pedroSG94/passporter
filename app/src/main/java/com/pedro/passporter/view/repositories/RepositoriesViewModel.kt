@@ -1,23 +1,26 @@
 package com.pedro.passporter.view.repositories
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.pedro.passporter.data.models.LocalRepository
 import com.pedro.passporter.task.ApiRestRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
 class RepositoriesViewModel @Inject constructor(private val apiRestRepository: ApiRestRepository): ViewModel() {
 
-  val usersObserver = MutableLiveData<List<LocalRepository>>()
+  private val userName = "pedroSG94"
+  private val pageSize = 10
+  private val token = ""
 
-  fun loadRepositories(userName: String) {
-    this.viewModelScope.launch {
-      val repositories = apiRestRepository.getRepositories(userName)
-      usersObserver.value = repositories
-    }
+  fun getRepositories(): Flow<PagingData<LocalRepository>> {
+    val pager = Pager(config = PagingConfig(10), pagingSourceFactory = { RepositoriesPagingSource(apiRestRepository, userName, pageSize, token) })
+    return pager.flow.cachedIn(viewModelScope)
   }
 }

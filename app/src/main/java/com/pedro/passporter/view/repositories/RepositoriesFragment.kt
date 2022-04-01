@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pedro.passporter.databinding.RepositoriesFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 
 
 @AndroidEntryPoint
@@ -19,7 +21,7 @@ class RepositoriesFragment : Fragment() {
   private lateinit var binding: RepositoriesFragmentBinding
   private val adapter = RepositoriesAdapter()
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
     binding = RepositoriesFragmentBinding.inflate(inflater, container, false)
     return binding.root
   }
@@ -29,9 +31,10 @@ class RepositoriesFragment : Fragment() {
     binding.repositoriesList.adapter = adapter
     val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
     binding.repositoriesList.addItemDecoration(dividerItemDecoration)
-    viewModel.usersObserver.observe(viewLifecycleOwner) {
-      adapter.submitList(it)
+    lifecycleScope.launchWhenCreated {
+      viewModel.getRepositories().collectLatest {
+        adapter.submitData(it)
+      }
     }
-    viewModel.loadRepositories("pedroSG94")
   }
 }

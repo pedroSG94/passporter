@@ -9,8 +9,9 @@ import com.pedro.passporter.utils.toLocalRepository
  */
 class ApiRestRepositoryImp(private val apiRestImp: ApiRestImp) : ApiRestRepository {
 
-  override suspend fun getRepositories(userName: String): List<LocalRepository> {
-    val remoteRepositories = apiRestImp.getRepositories(userName)
+  override suspend fun getRepositories(userName: String, page: Int, pageSize: Int,
+    headers: Map<String, String>): List<LocalRepository> {
+    val remoteRepositories = apiRestImp.getRepositories(userName, page, pageSize, headers)
     return remoteRepositories.map { it.toLocalRepository() }
   }
 }

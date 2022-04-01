@@ -25,16 +25,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.format(@string/name, repository.name)}"
+                android:layout_marginBottom="6dp"
+                android:textStyle="bold"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.format(@string/description, repository.description)}"
+                android:layout_marginBottom="6dp"
                 />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{String.format(@string/owner, repository.loginOwner)}"
+                android:textStyle="bold"
                 />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

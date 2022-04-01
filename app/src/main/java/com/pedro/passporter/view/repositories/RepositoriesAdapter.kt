@@ -2,6 +2,7 @@ package com.pedro.passporter.view.repositories
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.pedro.passporter.databinding.RepositoryItemBinding
 /**
  * Created by pedro on 1/4/22.
  */
-class RepositoriesAdapter: ListAdapter<LocalRepository, RepositoriesAdapter.ViewHolder>(UserDiffCallback()) {
+class RepositoriesAdapter: PagingDataAdapter<LocalRepository, RepositoriesAdapter.ViewHolder>(UserDiffCallback()) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val binding = RepositoryItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -26,9 +27,11 @@ class RepositoriesAdapter: ListAdapter<LocalRepository, RepositoriesAdapter.View
   class ViewHolder(private val itemBinding: RepositoryItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(repository: LocalRepository) {
-      itemBinding.repository = repository
-      itemBinding.executePendingBindings()
+    fun bind(repository: LocalRepository?) {
+      repository?.let {
+        itemBinding.repository = it
+        itemBinding.executePendingBindings()
+      }
     }
   }
 

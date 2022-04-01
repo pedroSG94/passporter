@@ -7,5 +7,5 @@ import com.pedro.passporter.data.models.LocalRepository
  */
 interface ApiRestRepository {
 
-  suspend fun getRepositories(userName: String): List<LocalRepository>
+  suspend fun getRepositories(userName: String, page: Int, pageSize: Int, headers: Map<String, String>): List<LocalRepository>
 }
