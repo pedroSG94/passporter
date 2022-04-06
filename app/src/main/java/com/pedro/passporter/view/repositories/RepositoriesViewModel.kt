@@ -10,12 +10,9 @@ import com.pedro.passporter.data.models.LocalRepository
 import com.pedro.passporter.data.models.PassporterConfig
 import com.pedro.passporter.task.ApiRestRepository
 import com.pedro.passporter.view.repositories.adapter.RepositoriesPagingSource
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-@HiltViewModel
-class RepositoriesViewModel @Inject constructor(private val apiRestRepository: ApiRestRepository): ViewModel() {
+class RepositoriesViewModel(private val apiRestRepository: ApiRestRepository): ViewModel() {
 
   private val config = PassporterConfig()
 

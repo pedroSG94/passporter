@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by pedro on 1/4/22.
  */
-class ApiRestImp {
+class ApiRestImp: ApiRest {
 
   private val url = "https://api.github.com"
   private val service = getRetrofit().create(ApiRestService::class.java)
@@ -25,7 +25,7 @@ class ApiRestImp {
       .build()
   }
 
-  suspend fun getRepositories(userName: String, page: Int, pageSize: Int, headers: Map<String, String>): List<Repository> {
+  override suspend fun getRepositories(userName: String, page: Int, pageSize: Int, headers: Map<String, String>): List<Repository> {
     return service.getRepositories(userName, page, pageSize, headers)
   }
 }

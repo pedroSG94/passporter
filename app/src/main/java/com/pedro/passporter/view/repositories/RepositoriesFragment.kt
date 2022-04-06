@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,14 +17,13 @@ import com.pedro.passporter.data.models.LocalRepository
 import com.pedro.passporter.databinding.DialogLayoutBinding
 import com.pedro.passporter.databinding.RepositoriesFragmentBinding
 import com.pedro.passporter.view.repositories.adapter.RepositoriesAdapter
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-@AndroidEntryPoint
 class RepositoriesFragment : Fragment(), RepositoriesAdapter.ClickListener {
 
-  private val viewModel: RepositoriesViewModel by viewModels()
+  private val repositoriesViewModel: RepositoriesViewModel by viewModel()
   private lateinit var binding: RepositoriesFragmentBinding
   private val adapter = RepositoriesAdapter(this)
 
@@ -40,7 +38,7 @@ class RepositoriesFragment : Fragment(), RepositoriesAdapter.ClickListener {
     val dividerItemDecoration = DividerItemDecoration(context, LinearLayoutManager.VERTICAL)
     binding.repositoriesList.addItemDecoration(dividerItemDecoration)
     lifecycleScope.launchWhenCreated {
-      viewModel.getRepositories().collectLatest {
+      repositoriesViewModel.getRepositories().collectLatest {
         adapter.submitData(it)
       }
     }
